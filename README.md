@@ -1,31 +1,29 @@
-SistecVPN Server — Central de Coordenação & Relay
+SistecVPN Cliente — Enterprise LAN VPN
 
 Software de redes privadas para comunicação LAN VPN feito por Rodrigo B. Silvaston para Sistec Soluções em TI.
 
-O SistecVPN Server é o servidor central de autoridade responsável por autenticar salas privadas, distribuir endereços IP virtuais únicos (`172.27.7.0/24`) e intermediar a comunicação P2P e Relay entre os clientes SistecVPN.
+O SistecVPN Cliente conecta computadores remotos em uma rede local privada (`172.27.7.0/24`), permitindo acesso direto a sistemas internos, pastas compartilhadas, impressoras, bancos de dados e Área de Trabalho Remota (RDP) com baixa latência.
 
-Principais Funções
+Principais Recursos
 
-- Autoridade de IP (IPAM): Garante que cada cliente receba um IP exclusivo na sub-rede `172.27.7.0/24`.
-- Gerenciamento de Redes Privadas: Criação, listagem e exclusão de salas em tempo real pelo painel administrativo.
-- Controle de Dispositivos: Visualização de clientes online e desconexão/expulsão imediata de máquinas.
-- Sinalização P2P + Relay Integrado: Coordena túneis diretos via STUN e encaminha pacotes via Relay UDP quando necessário.
-- Persistência Segura: Banco de dados SQLite criptografado em disco com AES-256-GCM.
+- Adaptador Virtual Layer 3 (Wintun): Comunicação real de rede IP entre todas as máquinas da mesma sala.
+- IP Fixo por Máquina: Endereço IP virtual (`172.27.7.x`) gerenciado pelo Servidor SistecVPN, evitando conflitos de IP.
+- Salas Privadas com Senha: Isolamento de redes por empresa, setor ou filial.
+- Execução em Segundo Plano: Permanece ativo na bandeja do sistema (ao lado do relógio) com inicialização automática no Windows.
+- Banco Local Criptografado: Configurações e credenciais protegidas com AES-256-GCM.
 - Atualização Automática: Verifica novas versões diretamente no GitHub Releases.
 
-Portas Utilizadas
+Como Instalar e Usar
 
-Certifique-se de que as seguintes portas estejam liberadas no firewall/roteador do servidor:
+1. Baixe e execute o instalador `SistecVPN-Client-Setup-x64.exe` (disponível na aba [Releases](https://github.com/RodrigoSilvaston/SistecVPN-Cliente/releases)).
+2. Abra o SistecVPN e clique no ícone de Configurações (⚙️) para informar o IP ou domínio do seu SistecVPN Server (porta padrão `51820`).
+3. Ative a chave Conectado à Rede para receber seu IP virtual.
+4. Clique em Criar Rede ou Entrar em Rede, informe o nome da sala e a senha.
 
-| Porta | Protocolo | Serviço |
-| `51820` | `TCP` | Sinalização REST, Autenticação de Salas e IPAM |
-| `3478` | `UDP` | STUN NAT Traversal |
-| `51821` | `UDP` | Relay Fallback (Encaminhamento de pacotes VPN) |
+Requisitos do Sistema
 
-Como Instalar
-
-1. Baixe e execute o instalador `SistecVPN-Server-Setup-x64.exe` (disponível na aba [Releases](https://github.com/RodrigoSilvaston/SistecVPN-Server/releases)).
-2. O instalador configurará automaticamente as regras do Windows Firewall e abrirá o painel do servidor.
-3. Copie o IP Público ou IP Local exibido no painel e informe-o nas configurações dos clientes SistecVPN.
+- Windows: Windows 10 / 11 ou Windows Server (64 bits) — *Executável com privilégios de Administrador para criação do adaptador virtual*.
+- Linux / macOS: Pacotes `.deb`, `.rpm`, `.tar.gz` e `.dmg` disponíveis nos pacotes multiplataforma.
 
 Desenvolvido por Rodrigo B. Silvaston — Sistec Soluções em TI
+
